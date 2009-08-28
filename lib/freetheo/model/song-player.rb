@@ -27,6 +27,19 @@ module FreeTheo
         @src.location = path_for_song number
       end
 
+      def each_song
+        n = 1
+        loop do
+          path = path_for_song n
+          if File.exists? path
+            yield n, path
+          else
+            break
+          end
+          n += 1
+        end
+      end
+
       private
 
       def path_for_song number
