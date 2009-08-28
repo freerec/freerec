@@ -9,8 +9,9 @@ module FreeTheo
       attr_reader :recorder_record_button,
                   :recorder_pause_button,
                   :recorder_stop_button,
-                  :recorder_dir_button,
-                  :songs_play_button,
+                  :recorder_dir_button
+
+      attr_reader :songs_play_button,
                   :songs_pause_button,
                   :songs_stop_button
 
