@@ -1,3 +1,5 @@
+require 'gst'
+
 module FreeTheo
   module Model
     class SongPlayer < Gst::Pipeline
