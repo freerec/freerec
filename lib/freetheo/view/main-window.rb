@@ -13,6 +13,8 @@ module FreeTheo
                   :songs_pause_button,
                   :songs_stop_button
 
+      attr_reader :songs_iconview
+
       def initialize
         builder = Builder.instance
         super builder['main-window']
@@ -24,6 +26,8 @@ module FreeTheo
         @songs_play_button  = builder['songs-play-button']
         @songs_pause_button = builder['songs-pause-button']
         @songs_stop_button  = builder['songs-stop-button']
+
+        @songs_iconview = builder['songs-iconview']
 
         show_all
 
