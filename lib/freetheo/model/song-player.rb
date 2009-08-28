@@ -3,7 +3,7 @@ require 'gst'
 module FreeTheo
   module Model
     class SongPlayer < Gst::Pipeline
-      SONGS_PATH = File.dirname(__FILE__)+'/../../../songs'
+      SONGS_PATH = File.dirname(__FILE__)+'/../../../../songs'
 
       def initialize
         super()

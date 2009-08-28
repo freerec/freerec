@@ -4,7 +4,7 @@ require 'gst'
 module FreeTheo
   module Model
     class Recorder < Gst::Pipeline
-      OUTPUT_DIR = File.dirname(__FILE__)+'/../../../recordings'
+      OUTPUT_DIR = File.dirname(__FILE__)+'/../../../../recordings'
 
       FileUtils.mkdir_p OUTPUT_DIR
 
