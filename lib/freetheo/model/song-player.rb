@@ -1,7 +1,9 @@
 module FreeTheo
   module Model
     class SongPlayer < Gst::Pipeline
-      def initialize song_number
+      SONGS_PATH = File.dirname(__FILE__)+'/../../../songs'
+
+      def initialize
         super()
 
         src   = Gst::ElementFactory.make 'filesrc'
@@ -10,7 +12,7 @@ module FreeTheo
         resmp = Gst::ElementFactory.make 'audioresample'
         sink  = Gst::ElementFactory.make 'autoaudiosink'
 
-        src.location = "songs/%03u.mp3" % song_number
+        @src = src
 
         add src, dec, conv, resmp, sink
         src >> dec
@@ -19,6 +21,17 @@ module FreeTheo
         dec.signal_connect 'new-decoded-pad' do |elem, pad|
           pad.link conv['sink']
         end
+      end
+
+      def song= number
+        @src.location = path_for_song number
+      end
+
+      private
+
+      def path_for_song number
+        filename = '%03u.mp3' % number
+        File.join SONGS_PATH, filename
       end
     end
   end

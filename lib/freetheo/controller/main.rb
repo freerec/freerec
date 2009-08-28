@@ -7,7 +7,8 @@ module FreeTheo
       def initialize
         @window = View::MainWindow.new
 
-        @player = Model::SongPlayer.new 1
+        @player = Model::SongPlayer.new
+        @player.song = 1
 
         @window.songs_play_button.signal_connect 'clicked' do
           @player.play
