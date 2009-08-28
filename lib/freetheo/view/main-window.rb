@@ -15,6 +15,9 @@ module FreeTheo
                   :songs_pause_button,
                   :songs_stop_button
 
+      attr_reader :recorder_progressbar,
+                  :songs_progressbar
+
       attr_reader :songs_treeview
 
       def initialize
@@ -29,6 +32,9 @@ module FreeTheo
         @songs_play_button  = builder['songs-play-button']
         @songs_pause_button = builder['songs-pause-button']
         @songs_stop_button  = builder['songs-stop-button']
+
+        @recorder_progressbar = builder['recorder-progressbar']
+        @songs_progressbar    = builder['songs-progressbar']
 
         @songs_treeview = builder['songs-treeview']
 

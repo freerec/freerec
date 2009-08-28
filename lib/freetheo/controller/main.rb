@@ -11,6 +11,9 @@ module FreeTheo
         @recorder = Model::Recorder.new
         @player = Model::SongPlayer.new
 
+        @recorder_state = :stopped
+        @player_state   = :stopped
+
         selected_song = 0
 
         @window.recorder_record_button.signal_connect 'clicked' do
@@ -61,6 +64,14 @@ module FreeTheo
         end
         selection.select_iter @window.songs_treeview.model.iter_first
 
+        update_recorder_progressbar
+        update_songs_progressbar
+
+        GLib::Timeout.add_seconds 1 do
+          update_recorder_progressbar
+          update_songs_progressbar
+        end
+
         if block_given?
           begin
             yield self
@@ -80,24 +91,32 @@ module FreeTheo
         state = @recorder.get_state(Gst::ClockTime::NONE)[1]
         case state
         when Gst::State::PLAYING
-          @window.recorder_state = :recording
+          @recorder_state = :recording
         when Gst::State::PAUSED
-          @window.recorder_state = :paused
+          @recorder_state = :paused
         else
-          @window.recorder_state = :stopped
+          @recorder_state = :stopped
         end
+
+        @window.recorder_state = @recorder_state
+
+        update_recorder_progressbar
       end
 
       def update_player_state
         state = @player.get_state(Gst::ClockTime::NONE)[1]
         case state
         when Gst::State::PLAYING
-          @window.songs_state = :playing
+          @player_state = :playing
         when Gst::State::PAUSED
-          @window.songs_state = :paused
+          @player_state = :paused
         else
-          @window.songs_state = :stopped
+          @player_state = :stopped
         end
+
+        @window.songs_state = @player_state
+
+        update_songs_progressbar
       end
 
       def build_songs_treeview
@@ -114,6 +133,56 @@ module FreeTheo
         @window.songs_treeview.append_column column
 
         nil
+      end
+
+      def update_recorder_progressbar
+        bar = @window.recorder_progressbar
+
+        seconds = @recorder.clock.time/1000000000.0 rescue 0
+        time = format_time seconds
+
+        case @recorder_state
+        when :recording
+          bar.text = time
+          bar.fraction = 1.0
+        when :paused
+          bar.text = time
+          bar.fraction = 0.0
+        when :stopped
+          bar.text = ''
+          bar.fraction = 0.0
+        end
+
+        true
+      end
+
+      def update_songs_progressbar
+        bar = @window.songs_progressbar
+
+        seconds = @player.clock.time/1000000000.0 rescue 0
+        time = format_time seconds
+
+        case @player_state
+        when :playing
+          bar.text = time
+          bar.fraction = 1.0
+        when :paused
+          bar.text = time
+          bar.fraction = 1.0
+        when :stopped
+          bar.text = ''
+          bar.fraction = 0.0
+        end
+
+        true
+      end
+
+      def format_time seconds
+        hms = [60*60, 60].inject([seconds]) do |list, div|
+          list[0..-2] + list[-1].divmod(div)
+        end
+
+        '%u:%02u:%02u' % hms
       end
     end
   end

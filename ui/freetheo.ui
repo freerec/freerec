@@ -75,6 +75,15 @@
                         <property name="position">0</property>
                       </packing>
                     </child>
+                    <child>
+                      <object class="GtkProgressBar" id="recorder-progressbar">
+                        <property name="visible">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
                   </object>
                 </child>
               </object>
@@ -149,6 +158,15 @@
                       </packing>
                     </child>
                     <child>
+                      <object class="GtkProgressBar" id="songs-progressbar">
+                        <property name="visible">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
                       <object class="GtkScrolledWindow" id="songs-treeview-scrolledwindow">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -161,7 +179,7 @@
                         </child>
                       </object>
                       <packing>
-                        <property name="position">1</property>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                   </object>
