@@ -137,7 +137,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkIconView" id="songs-iconview">
+                      <object class="GtkTreeView" id="songs-treeview">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                       </object>
