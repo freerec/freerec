@@ -3,6 +3,8 @@
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
   <object class="GtkWindow" id="main-window">
+    <property name="width_request">760</property>
+    <property name="height_request">560</property>
     <child>
       <object class="GtkHBox" id="main-hbox">
         <property name="visible">True</property>
