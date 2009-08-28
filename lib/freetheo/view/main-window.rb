@@ -9,6 +9,7 @@ module FreeTheo
       attr_reader :recorder_record_button,
                   :recorder_pause_button,
                   :recorder_stop_button,
+                  :recorder_dir_button,
                   :songs_play_button,
                   :songs_pause_button,
                   :songs_stop_button
@@ -22,6 +23,7 @@ module FreeTheo
         @recorder_record_button = builder['recorder-record-button']
         @recorder_pause_button  = builder['recorder-pause-button']
         @recorder_stop_button   = builder['recorder-stop-button']
+        @recorder_dir_button    = builder['recorder-open-directory-button']
 
         @songs_play_button  = builder['songs-play-button']
         @songs_pause_button = builder['songs-pause-button']

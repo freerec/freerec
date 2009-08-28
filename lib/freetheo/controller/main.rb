@@ -28,6 +28,10 @@ module FreeTheo
           update_recorder_state
         end
 
+        @window.recorder_dir_button.signal_connect 'clicked' do
+          system 'xdg-open', Model::Recorder::OUTPUT_DIR
+        end
+
         @window.songs_play_button.signal_connect 'clicked' do
           @player.song = selected_song
           @player.play
