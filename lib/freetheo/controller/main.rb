@@ -1,3 +1,4 @@
+require 'freetheo/model/recorder'
 require 'freetheo/model/song-player'
 require 'freetheo/view/main-window'
 
@@ -7,9 +8,25 @@ module FreeTheo
       def initialize
         @window = View::MainWindow.new
 
+        @recorder = Model::Recorder.new
         @player = Model::SongPlayer.new
 
         selected_song = 0
+
+        @window.recorder_record_button.signal_connect 'clicked' do
+          @recorder.play
+          update_recorder_state
+        end
+
+        @window.recorder_pause_button.signal_connect 'clicked' do
+          @recorder.pause
+          update_recorder_state
+        end
+
+        @window.recorder_stop_button.signal_connect 'clicked' do
+          @recorder.stop
+          update_recorder_state
+        end
 
         @window.songs_play_button.signal_connect 'clicked' do
           @player.song = selected_song
@@ -54,6 +71,18 @@ module FreeTheo
       end
 
       private
+
+      def update_recorder_state
+        state = @recorder.get_state(Gst::ClockTime::NONE)[1]
+        case state
+        when Gst::State::PLAYING
+          @window.recorder_state = :recording
+        when Gst::State::PAUSED
+          @window.recorder_state = :paused
+        else
+          @window.recorder_state = :stopped
+        end
+      end
 
       def update_player_state
         state = @player.get_state(Gst::ClockTime::NONE)[1]
