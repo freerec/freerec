@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkWindow" id="main-window">
+    <child>
+      <object class="GtkHBox" id="main-hbox">
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkFrame" id="recorder-frame">
+            <property name="visible">True</property>
+            <property name="label_xalign">0</property>
+            <child>
+              <object class="GtkAlignment" id="recorder-frame-alignment">
+                <property name="visible">True</property>
+                <property name="left_padding">12</property>
+                <child>
+                  <object class="GtkVBox" id="recorder-vbox">
+                    <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkToolbar" id="recorder-toolbar">
+                        <property name="visible">True</property>
+                        <child>
+                          <object class="GtkToolButton" id="recorder-record-button">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Record</property>
+                            <property name="use_underline">True</property>
+                            <property name="stock_id">gtk-media-record</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="homogeneous">True</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkToolButton" id="recorder-pause-button">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Pause</property>
+                            <property name="use_underline">True</property>
+                            <property name="stock_id">gtk-media-pause</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="homogeneous">True</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkToolButton" id="recorder-stop-button">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Stop</property>
+                            <property name="use_underline">True</property>
+                            <property name="stock_id">gtk-media-stop</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="homogeneous">True</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child type="label">
+              <object class="GtkLabel" id="recorder-frame-label">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">&lt;b&gt;Recording&lt;/b&gt;</property>
+                <property name="use_markup">True</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFrame" id="songs-frame">
+            <property name="visible">True</property>
+            <property name="label_xalign">0</property>
+            <child>
+              <object class="GtkAlignment" id="songs-frame-alignment">
+                <property name="visible">True</property>
+                <property name="left_padding">12</property>
+                <child>
+                  <object class="GtkVBox" id="songs-vbox">
+                    <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkToolbar" id="songs-toolbar">
+                        <property name="visible">True</property>
+                        <child>
+                          <object class="GtkToolButton" id="songs-play-button">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Play</property>
+                            <property name="use_underline">True</property>
+                            <property name="stock_id">gtk-media-play</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="homogeneous">True</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkToolButton" id="songs-pause-button">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Pause</property>
+                            <property name="use_underline">True</property>
+                            <property name="stock_id">gtk-media-pause</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="homogeneous">True</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkToolButton" id="songs-stop-button">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Stop</property>
+                            <property name="use_underline">True</property>
+                            <property name="stock_id">gtk-media-stop</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="homogeneous">True</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkIconView" id="songs-iconview">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                      </object>
+                      <packing>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child type="label">
+              <object class="GtkLabel" id="songs-frame-label">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">&lt;b&gt;Songs&lt;/b&gt;</property>
+                <property name="use_markup">True</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkListStore" id="liststore1"/>
+</interface>
