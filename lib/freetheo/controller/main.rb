@@ -8,9 +8,11 @@ module FreeTheo
         @window = View::MainWindow.new
 
         @player = Model::SongPlayer.new
-        @player.song = 1
+
+        selected_song = 0
 
         @window.songs_play_button.signal_connect 'clicked' do
+          @player.song = selected_song
           @player.play
           update_player_state
         end
@@ -28,6 +30,15 @@ module FreeTheo
         @window.signal_connect 'destroy' do
           Gtk.main_quit
         end
+
+        build_songs_treeview
+
+        selection = @window.songs_treeview.selection
+        selection.signal_connect 'changed' do |treesel|
+          selected = treesel.selected
+          selected_song = selected.get_value(0) if selected
+        end
+        selection.select_iter @window.songs_treeview.model.iter_first
 
         if block_given?
           begin
@@ -54,6 +65,22 @@ module FreeTheo
         else
           @window.songs_state = :stopped
         end
+      end
+
+      def build_songs_treeview
+        store = Gtk::ListStore.new Integer
+        @player.each_song do |n, path|
+          iter = store.append
+          iter[0] = n
+        end
+        @window.songs_treeview.model = store
+
+        renderer = Gtk::CellRendererText.new
+
+        column = Gtk::TreeViewColumn.new 'Number', renderer, 'text' => 0
+        @window.songs_treeview.append_column column
+
+        nil
       end
     end
   end

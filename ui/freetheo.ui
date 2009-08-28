@@ -137,9 +137,16 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkTreeView" id="songs-treeview">
+                      <object class="GtkScrolledWindow" id="songs-treeview-scrolledwindow">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="hscrollbar_policy">automatic</property>
+                        <property name="vscrollbar_policy">automatic</property>
+                        <child>
+                          <object class="GtkTreeView" id="songs-treeview">
+                            <property name="visible">True</property>
+                          </object>
+                        </child>
                       </object>
                       <packing>
                         <property name="position">1</property>
@@ -164,5 +171,4 @@
       </object>
     </child>
   </object>
-  <object class="GtkListStore" id="liststore1"/>
 </interface>
