@@ -55,6 +55,24 @@ module FreeTheo
           Gtk.main_quit
         end
 
+        @recorder.bus.add_watch do |bus, message|
+          case message.type
+          when Gst::Message::EOS
+            @recorder.stop
+            update_recorder_state
+          end
+          true
+        end
+
+        @player.bus.add_watch do |bus, message|
+          case message.type
+          when Gst::Message::EOS
+            @player.stop
+            update_player_state
+          end
+          true
+        end
+
         build_songs_treeview
 
         selection = @window.songs_treeview.selection
