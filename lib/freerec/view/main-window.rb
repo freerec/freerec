@@ -1,9 +1,9 @@
 require 'delegate'
 require 'gtk2'
 
-require 'freetheo/view/builder'
+require 'freerec/view/builder'
 
-module FreeTheo
+module FreeRec
   module View
     class MainWindow < DelegateClass(Gtk::Window)
       attr_reader :recorder_record_button,

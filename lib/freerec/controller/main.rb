@@ -1,8 +1,8 @@
-require 'freetheo/model/recorder'
-require 'freetheo/model/song-player'
-require 'freetheo/view/main-window'
+require 'freerec/model/recorder'
+require 'freerec/model/song-player'
+require 'freerec/view/main-window'
 
-module FreeTheo
+module FreeRec
   module Controller
     class Main
       def initialize

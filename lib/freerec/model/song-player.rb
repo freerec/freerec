@@ -1,6 +1,6 @@
 require 'gst'
 
-module FreeTheo
+module FreeRec
   module Model
     class SongPlayer < Gst::Pipeline
       SONGS_PATH = File.dirname(__FILE__)+'/../../../../songs'

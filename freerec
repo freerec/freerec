@@ -4,11 +4,11 @@ $LOAD_PATH.unshift File.dirname(__FILE__)+'/lib'
 
 require 'gst'
 
-require 'freetheo/controller/main'
+require 'freerec/controller/main'
 
 if $0 == __FILE__
   Gst.init
-  FreeTheo::Controller::Main.new do
+  FreeRec::Controller::Main.new do
     Gtk.main
   end
 end

@@ -1,7 +1,7 @@
 require 'gtk2'
 require 'singleton'
 
-module FreeTheo
+module FreeRec
   module View
     class Builder < Gtk::Builder
       include Singleton
@@ -9,7 +9,7 @@ module FreeTheo
       def initialize
         super()
 
-        self << File.dirname(__FILE__)+'/../../../ui/freetheo.ui'
+        self << File.dirname(__FILE__)+'/../../../ui/freerec.ui'
       end
     end
   end
