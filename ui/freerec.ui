@@ -6,6 +6,7 @@
     <property name="width_request">600</property>
     <property name="height_request">560</property>
     <property name="title" translatable="yes">FreeRec</property>
+    <property name="icon_name">audio-x-generic</property>
     <child>
       <object class="GtkVBox" id="main-vbox">
         <property name="visible">True</property>
