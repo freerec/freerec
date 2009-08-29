@@ -30,6 +30,8 @@ module FreeRec
       end
 
       def each_song
+        return enum_for :each_song unless block_given?
+
         n = 1
         loop do
           path = path_for_song n
@@ -40,6 +42,8 @@ module FreeRec
           end
           n += 1
         end
+
+        nil
       end
 
       private
