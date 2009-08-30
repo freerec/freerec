@@ -18,6 +18,7 @@ Runtime dependencies:
   • (good) speex
   • (ugly) lame
   • (ugly) mad
+  • An audio source and an audio sink (e.g. pulse or alsa)
 
 • You also need to be using a Gtk icon theme that provides the audio-x-generic
   icon. If you’re not a Gnome user, installing e.g. gnome-icon-theme and using
