@@ -23,9 +23,16 @@ module FreeRec
     class Recorder < Gst::Pipeline
       include GstStatusTextMixin
 
-      OUTPUT_DIR = File.dirname(__FILE__)+'/../../../../recordings'
+      def self.output_dir= dir
+        FileUtils.mkdir_p dir
 
-      FileUtils.mkdir_p OUTPUT_DIR
+        metaclass = class << self; self; end
+        metaclass.send :define_method, :output_dir do dir end
+      end
+
+      def self.output_dir
+        raise RuntimeError, "Call #{self}.output_dir = dir first"
+      end
 
       def initialize
         super()
@@ -83,7 +90,10 @@ module FreeRec
       private
 
       def create_files
-        base = "%s/%s" % [OUTPUT_DIR, Time.now.strftime('%Y_%m_%d_%a')]
+        base = "%s/%s" % [
+          self.class.output_dir,
+          Time.now.strftime('%Y_%m_%d_%a')
+        ]
 
         100.times do |i|
           spx_name = "%s_%02u.ogg" % [base, i]

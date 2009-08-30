@@ -47,7 +47,7 @@ module FreeRec
         end
 
         @window.on_recorder_open_directory do
-          system 'xdg-open', Model::Recorder::OUTPUT_DIR
+          system 'xdg-open', Model::Recorder.output_dir
         end
 
         @window.on_songs_play do

@@ -17,14 +17,20 @@
 
 $LOAD_PATH.unshift File.dirname(__FILE__)+'/lib'
 
+require 'etc'
 require 'gst'
 
 require 'freerec/controller/main'
+require 'freerec/model/recorder'
 
-if $0 == __FILE__
-  Gst.init
-  FreeRec::Controller::Main.new do
-    Gtk.main
-  end
+Gst.init
+
+home = Etc.getpwuid.dir
+
+# TODO Make this configurable.
+FreeRec::Model::Recorder.output_dir = home+'/freerec/recordings'
+
+FreeRec::Controller::Main.new do
+  Gtk.main
 end
 
