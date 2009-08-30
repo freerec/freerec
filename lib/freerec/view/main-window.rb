@@ -25,14 +25,14 @@ module FreeRec
         builder = Builder.instance
         super builder['main-window']
 
-        @recorder_record_button = builder['recorder-record-button']
-        @recorder_pause_button  = builder['recorder-pause-button']
-        @recorder_stop_button   = builder['recorder-stop-button']
-        @recorder_dir_button    = builder['recorder-open-directory-button']
+        @recorder_record_action = builder['recorder-record-action']
+        @recorder_pause_action  = builder['recorder-pause-action']
+        @recorder_stop_action   = builder['recorder-stop-action']
+        @recorder_dir_action    = builder['recorder-open-directory-action']
 
-        @songs_play_button  = builder['songs-play-button']
-        @songs_pause_button = builder['songs-pause-button']
-        @songs_stop_button  = builder['songs-stop-button']
+        @songs_play_action  = builder['songs-play-action']
+        @songs_pause_action = builder['songs-pause-action']
+        @songs_stop_action  = builder['songs-stop-action']
 
         @recorder_progressbar = builder['recorder-progressbar']
         @songs_progressbar    = builder['songs-progressbar']
@@ -58,12 +58,12 @@ module FreeRec
           raise ArgumentError, "Invalid state #{state.inspect}", caller
         end
 
-        @recorder_record_button.sensitive = [:paused, :stopped].include? state
-        @recorder_pause_button.sensitive  = :recording == state
-        @recorder_stop_button.sensitive   = [:recording, :paused].include? state
+        @recorder_record_action.sensitive = [:paused, :stopped].include? state
+        @recorder_pause_action.sensitive  = :recording == state
+        @recorder_stop_action.sensitive   = [:recording, :paused].include? state
 
-        @recorder_record_button.visible = @recorder_record_button.sensitive?
-        @recorder_pause_button.visible  = @recorder_pause_button.sensitive?
+        @recorder_record_action.visible = @recorder_record_action.sensitive?
+        @recorder_pause_action.visible  = @recorder_pause_action.sensitive?
 
         case state
         when :recording
@@ -78,19 +78,19 @@ module FreeRec
       end
 
       def on_recorder_record &block
-        @recorder_record_button.signal_connect 'clicked', &block
+        @recorder_record_action.signal_connect 'activate', &block
       end
 
       def on_recorder_pause &block
-        @recorder_pause_button.signal_connect 'clicked', &block
+        @recorder_pause_action.signal_connect 'activate', &block
       end
 
       def on_recorder_stop &block
-        @recorder_stop_button.signal_connect 'clicked', &block
+        @recorder_stop_action.signal_connect 'activate', &block
       end
 
       def on_recorder_open_directory &block
-        @recorder_dir_button.signal_connect 'clicked', &block
+        @recorder_dir_action.signal_connect 'activate', &block
       end
 
       def songs_state= state
@@ -98,12 +98,12 @@ module FreeRec
           raise ArgumentError, "Invalid state #{state.inspect}", caller
         end
 
-        @songs_play_button.sensitive  = [:paused, :stopped].include? state
-        @songs_pause_button.sensitive = :playing == state
-        @songs_stop_button.sensitive  = [:playing, :paused].include? state
+        @songs_play_action.sensitive  = [:paused, :stopped].include? state
+        @songs_pause_action.sensitive = :playing == state
+        @songs_stop_action.sensitive  = [:playing, :paused].include? state
 
-        @songs_play_button.visible  = @songs_play_button.sensitive?
-        @songs_pause_button.visible = @songs_pause_button.sensitive?
+        @songs_play_action.visible  = @songs_play_action.sensitive?
+        @songs_pause_action.visible = @songs_pause_action.sensitive?
 
         case state
         when :playing, :paused
@@ -118,15 +118,15 @@ module FreeRec
       end
 
       def on_songs_play &block
-        @songs_play_button.signal_connect 'clicked', &block
+        @songs_play_action.signal_connect 'activate', &block
       end
 
       def on_songs_pause &block
-        @songs_pause_button.signal_connect 'clicked', &block
+        @songs_pause_action.signal_connect 'activate', &block
       end
 
       def on_songs_stop &block
-        @songs_stop_button.signal_connect 'clicked', &block
+        @songs_stop_action.signal_connect 'activate', &block
       end
 
       def on_destroy &block
