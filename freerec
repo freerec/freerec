@@ -22,6 +22,7 @@ require 'gst'
 
 require 'freerec/controller/main'
 require 'freerec/model/recorder'
+require 'freerec/model/song-player'
 
 Gst.init
 
@@ -29,6 +30,7 @@ home = Etc.getpwuid.dir
 
 # TODO Make this configurable.
 FreeRec::Model::Recorder.output_dir = home+'/freerec/recordings'
+FreeRec::Model::SongPlayer.songs_dir = home+'/freerec/songs'
 
 FreeRec::Controller::Main.new do
   Gtk.main

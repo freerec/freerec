@@ -22,7 +22,14 @@ module FreeRec
     class SongPlayer < Gst::Pipeline
       include GstStatusTextMixin
 
-      SONGS_PATH = File.dirname(__FILE__)+'/../../../../songs'
+      def self.songs_dir= dir
+        metaclass = class << self; self; end
+        metaclass.send :define_method, :songs_dir do dir end
+      end
+
+      def self.songs_dir
+        raise RuntimeError, "Call #{self}.songs_dir = dir first"
+      end
 
       def initialize
         super()
@@ -69,7 +76,7 @@ module FreeRec
 
       def path_for_song number
         filename = '%03u.mp3' % number
-        File.join SONGS_PATH, filename
+        File.join self.class.songs_dir, filename
       end
     end
   end
