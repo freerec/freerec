@@ -153,29 +153,15 @@ module FreeRec
       end
 
       def update_recorder_text
-        seconds = @recorder.clock.time/1000000000.0 rescue 0
-        time = format_time seconds
-
-        @window.recorder_text = time
+        @window.recorder_text = @recorder.status_text
 
         true
       end
 
       def update_songs_text
-        seconds = @player.clock.time/1000000000.0 rescue 0
-        time = format_time seconds
-
-        @window.songs_text = time
+        @window.songs_text = @player.status_text
 
         true
-      end
-
-      def format_time seconds
-        hms = [60*60, 60].inject([seconds]) do |list, div|
-          list[0..-2] + list[-1].divmod(div)
-        end
-
-        '%u:%02u:%02u' % hms
       end
     end
   end

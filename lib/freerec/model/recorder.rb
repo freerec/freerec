@@ -16,9 +16,13 @@
 require 'fileutils'
 require 'gst'
 
+require 'freerec/model/gst-status-text-mixin'
+
 module FreeRec
   module Model
     class Recorder < Gst::Pipeline
+      include GstStatusTextMixin
+
       OUTPUT_DIR = File.dirname(__FILE__)+'/../../../../recordings'
 
       FileUtils.mkdir_p OUTPUT_DIR

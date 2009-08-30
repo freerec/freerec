@@ -15,9 +15,13 @@
 
 require 'gst'
 
+require 'freerec/model/gst-status-text-mixin'
+
 module FreeRec
   module Model
     class SongPlayer < Gst::Pipeline
+      include GstStatusTextMixin
+
       SONGS_PATH = File.dirname(__FILE__)+'/../../../../songs'
 
       def initialize
