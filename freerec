@@ -19,6 +19,7 @@ $LOAD_PATH.unshift File.dirname(__FILE__)+'/lib'
 
 require 'etc'
 require 'gst'
+require 'gtk2'
 
 require 'freerec/controller/main'
 require 'freerec/model/recorder'
