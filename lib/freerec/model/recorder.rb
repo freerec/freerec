@@ -17,6 +17,7 @@ require 'fileutils'
 require 'gst'
 
 require 'freerec/model/gst-status-text-mixin'
+require 'gst-extensions'
 
 module FreeRec
   module Model
@@ -37,18 +38,18 @@ module FreeRec
       def initialize
         super()
 
-        src = Gst::ElementFactory.make 'autoaudiosrc'
-        tee = Gst::ElementFactory.make 'tee'
+        src = Gst::ElementFactory.make! 'autoaudiosrc'
+        tee = Gst::ElementFactory.make! 'tee'
 
         add src, tee
         src >> tee
 
-        spx_queue = Gst::ElementFactory.make 'queue'
-        spx_conv  = Gst::ElementFactory.make 'audioconvert'
-        spx_resmp = Gst::ElementFactory.make 'audioresample'
-        spx_enc   = Gst::ElementFactory.make 'speexenc'
-        spx_mux   = Gst::ElementFactory.make 'oggmux'
-        spx_sink  = Gst::ElementFactory.make 'filesink'
+        spx_queue = Gst::ElementFactory.make! 'queue'
+        spx_conv  = Gst::ElementFactory.make! 'audioconvert'
+        spx_resmp = Gst::ElementFactory.make! 'audioresample'
+        spx_enc   = Gst::ElementFactory.make! 'speexenc'
+        spx_mux   = Gst::ElementFactory.make! 'oggmux'
+        spx_sink  = Gst::ElementFactory.make! 'filesink'
 
         @spx_sink = spx_sink
 
@@ -60,11 +61,11 @@ module FreeRec
         tee >>
           spx_queue >> spx_conv >> spx_resmp >> spx_enc >> spx_mux >> spx_sink
 
-        mp3_queue = Gst::ElementFactory.make 'queue'
-        mp3_conv  = Gst::ElementFactory.make 'audioconvert'
-        mp3_resmp = Gst::ElementFactory.make 'audioresample'
-        mp3_enc   = Gst::ElementFactory.make 'lame'
-        mp3_sink  = Gst::ElementFactory.make 'filesink'
+        mp3_queue = Gst::ElementFactory.make! 'queue'
+        mp3_conv  = Gst::ElementFactory.make! 'audioconvert'
+        mp3_resmp = Gst::ElementFactory.make! 'audioresample'
+        mp3_enc   = Gst::ElementFactory.make! 'lame'
+        mp3_sink  = Gst::ElementFactory.make! 'filesink'
 
         @mp3_sink = mp3_sink
 

@@ -16,6 +16,7 @@
 require 'gst'
 
 require 'freerec/model/gst-status-text-mixin'
+require 'gst-extensions'
 
 module FreeRec
   module Model
@@ -34,11 +35,11 @@ module FreeRec
       def initialize
         super()
 
-        src   = Gst::ElementFactory.make 'filesrc'
-        dec   = Gst::ElementFactory.make 'decodebin'
-        conv  = Gst::ElementFactory.make 'audioconvert'
-        resmp = Gst::ElementFactory.make 'audioresample'
-        sink  = Gst::ElementFactory.make 'autoaudiosink'
+        src   = Gst::ElementFactory.make! 'filesrc'
+        dec   = Gst::ElementFactory.make! 'decodebin'
+        conv  = Gst::ElementFactory.make! 'audioconvert'
+        resmp = Gst::ElementFactory.make! 'audioresample'
+        sink  = Gst::ElementFactory.make! 'autoaudiosink'
 
         @src = src
 
