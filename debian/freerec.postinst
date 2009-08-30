@@ -1,0 +1,38 @@
+#!/bin/sh
+set -e
+. /usr/share/debconf/confmodule
+
+songs_dir="/usr/share/freerec/songs"
+
+copy_songs() {
+  if [ -e "$songs_dir/001.mp3" ]; then
+    # Songs already copied.
+    return
+  fi
+
+  db_get freerec/local-songs-dir
+  if [ -z "$RET" ]; then
+    >&2 printf "Local songs directory not entered.\n"
+    >&2 printf "Please run dpkg-reconfigure freerec to copy the songs.\n"
+    return
+  fi
+  if [ ! -e "$RET/001.mp3" ]; then
+    >&2 printf "No songs found under %s.\n" "$RET"
+    >&2 printf "Please run dpkg-reconfigure freerec to copy the songs.\n"
+    return
+  fi
+
+  >&2 printf "Copying songs from %s...\n" "$RET"
+  install -d "$songs_dir"
+  install -m 644 -t "$songs_dir" "$RET"/[0-9][0-9][0-9].mp3
+}
+
+if [ "$1" = "configure" ]; then
+  copy_songs
+fi
+
+db_stop
+
+#DEBHELPER#
+
+# vim:set et sw=2 sts=2:

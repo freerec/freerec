@@ -1,0 +1,28 @@
+Source: freerec
+Section: sound
+Priority: optional
+Maintainer: FreeRec author <freerec1@gmail.com>
+Build-Depends: debhelper (>= 7.0.50~), po-debconf
+Build-Depends-Indep: rake, intltool
+Standards-Version: 3.8.3
+Homepage: https://launchpad.net/freerec
+
+Package: freerec
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends},
+ ruby1.8,
+ libgst-ruby1.8,
+ libgtk2-ruby1.8,
+ libgettext-ruby1.8,
+ gnome-icon-theme,
+ gstreamer0.10-pulseaudio | gstreamer0.10-alsa | gstreamer0.10-audiosource,
+ gstreamer0.10-pulseaudio | gstreamer0.10-alsa | gstreamer0.10-audiosink,
+ gstreamer0.10-plugins-base,
+ gstreamer0.10-plugins-good,
+ gstreamer0.10-plugins-ugly,
+ gstreamer0.10-plugins-ugly-multiverse,
+ gstreamer0.10-x,
+ libvisual-0.4-plugins
+Description: Audio recorder and song player
+ FreeRec provides a simple interface to record audio in MP3 and Speex formats
+ and to play songs from a static list.

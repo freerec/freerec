@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+
+% :
+	dh "$@"
+
+override_dh_auto_clean ::
+	rake clobber
+	debconf-updatepo
+
+override_dh_auto_build ::
+	rake
+
+override_dh_install ::
+	dh_install
+	sed -i -r \
+	  -e '1s|^#!.*|#!/usr/bin/ruby1.8|' \
+	  -e 's|^(LIB_DIR\s*=).*|\1 "/usr/share/freerec/lib"|' \
+	  -e 's|^(SONGS_DIR\s*=).*|\1 "/usr/share/freerec/songs"|' \
+	  debian/freerec/usr/bin/*
+

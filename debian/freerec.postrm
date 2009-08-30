@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = "purge" ]; then
+  rm -fr /usr/share/freerec/songs
+fi
+
+#DEBHELPER#
+
+# vim:set et sw=2 sts=2:

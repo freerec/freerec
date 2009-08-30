@@ -1,0 +1,5 @@
+freerec usr/bin
+freerec.desktop usr/share/applications
+lib usr/share/freerec
+ui/*.ui usr/share/freerec/ui
+locale usr/share

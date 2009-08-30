@@ -1,0 +1,3 @@
+version=3
+
+https://launchpad.net/freerec/+download .*/freerec-(.*)\.tar\.gz

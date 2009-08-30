@@ -1,0 +1,12 @@
+Template: freerec/local-songs-dir
+Type: string
+_Description: The directory to copy the songs from:
+ Please enter the directory that contains the songs. They will be copied to a
+ directory used by the package. Leave this blank to do this later.
+
+Template: freerec/local-songs-dir-not-found
+Type: error
+_Description: No songs found!
+ The directory you entered contained no songs. Specifically, it did not contain
+ a file named 001.mp3.
+
