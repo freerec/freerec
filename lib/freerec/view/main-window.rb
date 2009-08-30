@@ -37,14 +37,15 @@ module FreeRec
         @recorder_progressbar = builder['recorder-progressbar']
         @songs_progressbar    = builder['songs-progressbar']
 
-        @songs_treeview = builder['songs-treeview']
+        @songs_iconview = builder['songs-iconview']
 
-        store = Gtk::ListStore.new Integer
-        @songs_treeview.model = store
+        store = Gtk::ListStore.new Integer, String, Gdk::Pixbuf
+        @songs_iconview.model = store
+        @songs_iconview.text_column   = 1
+        @songs_iconview.pixbuf_column = 2
 
-        renderer = Gtk::CellRendererText.new
-        column = Gtk::TreeViewColumn.new 'Number', renderer, 'text' => 0
-        @songs_treeview.append_column column
+        @songs_icon = Gtk::IconTheme.default.load_icon 'audio-x-generic', 16,
+          Gtk::IconTheme::LOOKUP_USE_BUILTIN
 
         show_all
 
@@ -133,23 +134,26 @@ module FreeRec
       end
 
       def songs_add number
-        iter = @songs_treeview.model.append
+        iter = @songs_iconview.model.append
         iter[0] = number
+        iter[1] = number.to_s
+        iter[2] = @songs_icon
       end
 
       def on_songs_select
-        @songs_treeview.selection.signal_connect 'changed' do |treesel|
-          if selected = treesel.selected
-            yield selected.get_value 0
+        @songs_iconview.signal_connect 'selection-changed' do |iconview|
+          path = *iconview.selected_items
+          if path and iter = iconview.model.get_iter(path)
+            yield iter.get_value(0)
           end
         end
       end
 
       def songs_select number
         # XXX Not very efficient. :-P
-        @songs_treeview.model.each do |model, path, iter|
+        @songs_iconview.model.each do |model, path, iter|
           if iter.get_value(0) == number
-            @songs_treeview.selection.select_iter iter
+            @songs_iconview.select_path path
             break
           end
         end

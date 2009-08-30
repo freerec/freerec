@@ -1,12 +1,12 @@
 In rough priority order:
 
-• Display songs in columns, similar to the compact view in Nautilus. Should
-  prevent the need to scroll.
-
 • Display a VU meter for input.
 
 • Let the user type a title for the current/next recording. Store it in file
   tags and names.
+
+• Display adjacent songs from top to bottom instead of from left to right,
+  similar to the compact view in Nautilus. Any scrolling would be horizontal.
 
 • Localization with gettext.
 
