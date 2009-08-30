@@ -19,7 +19,6 @@
             <child>
               <object class="GtkAlignment" id="recorder-frame-alignment">
                 <property name="visible">True</property>
-                <property name="left_padding">12</property>
                 <child>
                   <object class="GtkVBox" id="recorder-vbox">
                     <property name="visible">True</property>
@@ -124,7 +123,6 @@
             <child>
               <object class="GtkAlignment" id="songs-frame-alignment">
                 <property name="visible">True</property>
-                <property name="left_padding">12</property>
                 <child>
                   <object class="GtkVBox" id="songs-vbox">
                     <property name="visible">True</property>
