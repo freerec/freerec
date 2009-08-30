@@ -1,0 +1,27 @@
+FreeRec provides a simple interface to record audio in MP3 and Speex formats
+and to play songs from a static list.
+
+The latest version is available at <http://github.com/freerec/freerec>. The
+repository contains Ubuntu packaging in the debian branch.
+
+Runtime dependencies:
+
+• Ruby 1.8
+• The gst and gtk2 bindings for Ruby 1.8 from ruby-gnome2
+
+• The following GStreamer plugins:
+  • (base) audioconvert
+  • (base) audioresample
+  • (base) decodebin
+  • (base) ogg
+  • (good) autodetect
+  • (good) speex
+  • (ugly) lame
+  • (ugly) mad
+
+• You also need to be using a Gtk icon theme that provides the audio-x-generic
+  icon. If you’re not a Gnome user, installing e.g. gnome-icon-theme and using
+  the following .gtkrc-2.0 suffices:
+
+    gtk-icon-theme-name = "gnome"
+
