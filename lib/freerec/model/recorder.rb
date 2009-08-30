@@ -83,7 +83,7 @@ module FreeRec
       private
 
       def create_files
-        base = "%s/%s" % [OUTPUT_DIR, Time.now.strftime('%Y_%m_%d')]
+        base = "%s/%s" % [OUTPUT_DIR, Time.now.strftime('%Y_%m_%d_%a')]
 
         100.times do |i|
           spx_name = "%s_%02u.ogg" % [base, i]
