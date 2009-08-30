@@ -1,0 +1,5 @@
+• Localization with gettext.
+• Display songs in columns, similar to the compact view in Nautilus. Should
+  prevent the need to scroll.
+• Let the user type a title for the current/next recording. Store it in file
+  tags and names.
