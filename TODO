@@ -1,5 +1,14 @@
-• Localization with gettext.
+In rough priority order:
+
 • Display songs in columns, similar to the compact view in Nautilus. Should
   prevent the need to scroll.
+
+• Display a VU meter for input.
+
 • Let the user type a title for the current/next recording. Store it in file
   tags and names.
+
+• Localization with gettext.
+
+• Automatic mixer control based on measured input volume?
+
