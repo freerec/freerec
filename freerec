@@ -23,10 +23,13 @@ require 'gst'
 require 'gtk2'
 
 require 'freerec/controller/main'
+require 'freerec/l18n'
 require 'freerec/model/recorder'
 require 'freerec/model/song-player'
 
 Gst.init
+
+FreeRec::L18n.init
 
 home = Etc.getpwuid.dir
 

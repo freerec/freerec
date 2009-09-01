@@ -4,10 +4,21 @@ and to play songs from a static list.
 The latest version is available at <http://github.com/freerec/freerec>. The
 repository contains Ubuntu packaging in the debian branch.
 
+Build-time dependencies:
+
+• Rake 1.8
+• intltool
+• gettext
+
+Run ‘rake’ (or ‘rake build’) to build the locales.
+
+Run ‘rake clobber’ to clean the build directory.
+
 Runtime dependencies:
 
 • Ruby 1.8
 • The gst and gtk2 bindings for Ruby 1.8 from ruby-gnome2
+• The gettext library for Ruby 1.8
 
 • The following GStreamer plugins:
   • (base) audioconvert
@@ -27,4 +38,13 @@ Runtime dependencies:
     gtk-icon-theme-name = "gnome"
 
   Other alternatives include oxygen (for KDE users) and Tango.
+
+Development-time dependencies:
+
+• All of the build-time and runtime dependencies
+• rgettext (from the gettext library for Ruby 1.8)
+
+Run ‘rake msgmerge’ to create/update po/freerec.pot and po/*.po.
+
+Run ‘rake’ (or ‘rake build’) to build the locales.
 

@@ -1,0 +1,7 @@
+DOMAIN = freerec
+
+subdir = po
+top_builddir = ..
+
+COPYRIGHT_HOLDER = FreeRec author <freerec1@gmail.com>
+MSGID_BUGS_ADDRESS = freerec1@gmail.com

@@ -13,23 +13,14 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-require 'gtk2'
-require 'singleton'
-
-require 'freerec/l18n'
+require 'gettext'
 
 module FreeRec
-  module View
-    class Builder < Gtk::Builder
-      include Singleton
+  module L18n
+    DOMAIN = 'freerec'
 
-      def initialize
-        super()
-
-        self.translation_domain = L18n::DOMAIN
-
-        self << File.dirname(__FILE__)+'/../../../ui/freerec.ui'
-      end
+    def self.init
+      GetText.bindtextdomain DOMAIN, :charset => 'UTF-8'
     end
   end
 end

@@ -8,7 +8,5 @@ In rough priority order:
 • Display adjacent songs from top to bottom instead of from left to right,
   similar to the compact view in Nautilus. Any scrolling would be horizontal.
 
-• Localization with gettext.
-
 • Automatic mixer control based on measured input volume?
 

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
-Name=FreeRec
-Comment=Audio recorder and song player
+_Name=FreeRec
+_Comment=Audio recorder and song player
 Icon=audio-x-generic
 Exec=freerec
 Categories=AudioVideo;Audio;Player;Recorder;Music;GTK
