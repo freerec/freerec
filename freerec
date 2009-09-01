@@ -18,6 +18,12 @@
 lib_dir = File.dirname(__FILE__)+'/lib'
 $LOAD_PATH.unshift lib_dir
 
+begin
+  require 'rubygems'
+rescue LoadError
+  # Ignore.
+end
+
 require 'etc'
 require 'gst'
 require 'gtk2'
