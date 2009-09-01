@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: freerec 0.0.1\n"
 "Report-Msgid-Bugs-To: freerec1@gmail.com\n"
-"POT-Creation-Date: 2009-09-01 20:37+0300\n"
-"PO-Revision-Date: 2009-09-01 20:36+0300\n"
+"POT-Creation-Date: 2009-09-01 21:47+0300\n"
+"PO-Revision-Date: 2009-09-01 21:47+0300\n"
 "Last-Translator: FreeRec author <freerec1@gmail.com>\n"
 "Language-Team: Finnish\n"
 "MIME-Version: 1.0\n"
@@ -38,17 +38,45 @@ msgid "Open Directory"
 msgstr "Avaa hakemisto"
 
 #: ../ui/freerec.ui.in.h:5
+msgid "Open the directory containing the recorded files"
+msgstr "Avaa hakemisto, johon äänitteet on tallennettu"
+
+#: ../ui/freerec.ui.in.h:6
 msgid "Pause"
 msgstr "Tauko"
 
-#: ../ui/freerec.ui.in.h:6
+#: ../ui/freerec.ui.in.h:7
+msgid "Pause recording"
+msgstr "Pidä tauko äänityksessä"
+
+#: ../ui/freerec.ui.in.h:8
+msgid "Pause the song"
+msgstr "Pidä tauko laulun toistossa"
+
+#: ../ui/freerec.ui.in.h:9
 msgid "Play"
 msgstr "Toista"
 
-#: ../ui/freerec.ui.in.h:7
+#: ../ui/freerec.ui.in.h:10
 msgid "Record"
 msgstr "Äänitä"
 
-#: ../ui/freerec.ui.in.h:8
+#: ../ui/freerec.ui.in.h:11
+msgid "Start or continue playing the song"
+msgstr "Aloita laulun toisto tai jatka toistoa"
+
+#: ../ui/freerec.ui.in.h:12
+msgid "Start or continue recording"
+msgstr "Aloita äänitys tai jatka äänitystä"
+
+#: ../ui/freerec.ui.in.h:13
 msgid "Stop"
 msgstr "Pysäytä"
+
+#: ../ui/freerec.ui.in.h:14
+msgid "Stop recording"
+msgstr "Lopeta äänitys"
+
+#: ../ui/freerec.ui.in.h:15
+msgid "Stop the song"
+msgstr "Lopeta laulun toisto"
