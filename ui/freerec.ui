@@ -29,9 +29,9 @@
                         <child>
                           <object class="GtkToolButton" id="recorder-record-button">
                             <property name="visible">True</property>
-                            <property name="related_action">recorder-record-action</property>
-                            <property name="use_action_appearance">True</property>
+                            <property name="label" translatable="yes">Record</property>
                             <property name="use_underline">True</property>
+                            <property name="stock_id">gtk-media-record</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -41,9 +41,9 @@
                         <child>
                           <object class="GtkToolButton" id="recorder-pause-button">
                             <property name="visible">True</property>
-                            <property name="related_action">recorder-pause-action</property>
-                            <property name="use_action_appearance">True</property>
+                            <property name="label" translatable="yes">Pause</property>
                             <property name="use_underline">True</property>
+                            <property name="stock_id">gtk-media-pause</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -53,9 +53,9 @@
                         <child>
                           <object class="GtkToolButton" id="recorder-stop-button">
                             <property name="visible">True</property>
-                            <property name="related_action">recorder-stop-action</property>
-                            <property name="use_action_appearance">True</property>
+                            <property name="label" translatable="yes">Stop</property>
                             <property name="use_underline">True</property>
+                            <property name="stock_id">gtk-media-stop</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -65,9 +65,9 @@
                         <child>
                           <object class="GtkToolButton" id="recorder-open-directory-button">
                             <property name="visible">True</property>
-                            <property name="related_action">recorder-open-directory-action</property>
-                            <property name="use_action_appearance">True</property>
+                            <property name="label" translatable="yes">Open directory</property>
                             <property name="use_underline">True</property>
+                            <property name="stock_id">gtk-directory</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -133,9 +133,9 @@
                         <child>
                           <object class="GtkToolButton" id="songs-play-button">
                             <property name="visible">True</property>
-                            <property name="related_action">songs-play-action</property>
-                            <property name="use_action_appearance">True</property>
+                            <property name="label" translatable="yes">Play</property>
                             <property name="use_underline">True</property>
+                            <property name="stock_id">gtk-media-play</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -145,9 +145,9 @@
                         <child>
                           <object class="GtkToolButton" id="songs-pause-button">
                             <property name="visible">True</property>
-                            <property name="related_action">songs-pause-action</property>
-                            <property name="use_action_appearance">True</property>
+                            <property name="label" translatable="yes">Pause</property>
                             <property name="use_underline">True</property>
+                            <property name="stock_id">gtk-media-pause</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -157,9 +157,9 @@
                         <child>
                           <object class="GtkToolButton" id="songs-stop-button">
                             <property name="visible">True</property>
-                            <property name="related_action">songs-stop-action</property>
-                            <property name="use_action_appearance">True</property>
+                            <property name="label" translatable="yes">Stop</property>
                             <property name="use_underline">True</property>
+                            <property name="stock_id">gtk-media-stop</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -221,40 +221,5 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkAction" id="recorder-record-action">
-    <property name="label">Record</property>
-    <property name="tooltip">Start or continue recording</property>
-    <property name="stock_id">gtk-media-record</property>
-  </object>
-  <object class="GtkAction" id="recorder-pause-action">
-    <property name="label">Pause</property>
-    <property name="tooltip">Pause recording</property>
-    <property name="stock_id">gtk-media-pause</property>
-  </object>
-  <object class="GtkAction" id="recorder-stop-action">
-    <property name="label">Stop</property>
-    <property name="tooltip">Stop recording</property>
-    <property name="stock_id">gtk-media-stop</property>
-  </object>
-  <object class="GtkAction" id="recorder-open-directory-action">
-    <property name="label">Open Directory</property>
-    <property name="tooltip">Open the directory containing the recorded files</property>
-    <property name="stock_id">gtk-directory</property>
-  </object>
-  <object class="GtkAction" id="songs-play-action">
-    <property name="label">Play</property>
-    <property name="tooltip">Start or continue playing the song</property>
-    <property name="stock_id">gtk-media-play</property>
-  </object>
-  <object class="GtkAction" id="songs-pause-action">
-    <property name="label">Pause</property>
-    <property name="tooltip">Pause the song</property>
-    <property name="stock_id">gtk-media-pause</property>
-  </object>
-  <object class="GtkAction" id="songs-stop-action">
-    <property name="label">Stop</property>
-    <property name="tooltip">Stop the song</property>
-    <property name="stock_id">gtk-media-stop</property>
   </object>
 </interface>
