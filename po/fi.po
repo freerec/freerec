@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: freerec 0.0.1\n"
 "Report-Msgid-Bugs-To: freerec1@gmail.com\n"
-"POT-Creation-Date: 2009-09-02 14:45+0300\n"
+"POT-Creation-Date: 2009-09-02 15:07+0300\n"
 "PO-Revision-Date: 2009-09-02 14:45+0300\n"
 "Last-Translator: FreeRec author <freerec1@gmail.com>\n"
 "Language-Team: Finnish\n"
@@ -81,11 +81,11 @@ msgstr "Lopeta äänitys"
 msgid "Stop the song"
 msgstr "Lopeta laulun toisto"
 
-#: freerec:88
+#: freerec:95
 msgid "Well, this is embarrassing. FreeRec crashed."
 msgstr "Tämäpä noloa. FreeRec kaatui."
 
-#: freerec:90
+#: freerec:97
 msgid ""
 "Please convey the following error message to the developers:\n"
 "\n"
