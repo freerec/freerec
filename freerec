@@ -15,8 +15,13 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-lib_dir = File.dirname(__FILE__)+'/lib'
-$LOAD_PATH.unshift lib_dir
+LIB_DIR    = File.dirname(__FILE__)+'/lib'
+
+# TODO Make this configurable.
+OUTPUT_DIR = File.expand_path '~/freerec/recordings'
+SONGS_DIR  = File.expand_path '~/freerec/songs'
+
+$LOAD_PATH.unshift LIB_DIR
 
 begin
   require 'rubygems'
@@ -24,7 +29,6 @@ rescue LoadError
   # Ignore.
 end
 
-require 'etc'
 require 'gst'
 require 'gtk2'
 
@@ -37,11 +41,8 @@ Gst.init
 
 FreeRec::L18n.init
 
-home = Etc.getpwuid.dir
-
-# TODO Make this configurable.
-FreeRec::Model::Recorder.output_dir = home+'/freerec/recordings'
-FreeRec::Model::SongPlayer.songs_dir = home+'/freerec/songs'
+FreeRec::Model::Recorder.output_dir  = OUTPUT_DIR
+FreeRec::Model::SongPlayer.songs_dir = SONGS_DIR
 
 FreeRec::Controller::Main.new do
   Gtk.main
