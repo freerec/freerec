@@ -29,22 +29,70 @@ rescue LoadError
   # Ignore.
 end
 
+require 'gettext'
+require 'glib2'
 require 'gst'
 require 'gtk2'
+require 'syslog'
 
 require 'freerec/controller/main'
 require 'freerec/l18n'
 require 'freerec/model/recorder'
 require 'freerec/model/song-player'
+require 'freerec/view/builder'
 
-Gst.init
+include GetText
 
-FreeRec::L18n.init
+# GLib::exit_application is called when a callback raises an exception. It
+# prints the exception and calls exit by default. We want to catch the
+# exception ourselves, thank you very much.
+def GLib.exit_application exception, status
+  raise exception
+end
 
-FreeRec::Model::Recorder.output_dir  = OUTPUT_DIR
-FreeRec::Model::SongPlayer.songs_dir = SONGS_DIR
+begin
+  FreeRec::L18n.init
+  Gst.init
 
-FreeRec::Controller::Main.new do
-  Gtk.main
+  FreeRec::Model::Recorder.output_dir  = OUTPUT_DIR
+  FreeRec::Model::SongPlayer.songs_dir = SONGS_DIR
+
+  FreeRec::Controller::Main.new do
+    Gtk.main
+  end
+
+rescue => e
+  msg = ["#{e.backtrace.first}: #{e} (#{e.class})"]
+  e.backtrace[1..-1].each do |entry|
+    msg << "    from #{entry}"
+  end
+
+  $stderr.puts msg.join("\n")
+
+  Syslog.open('freerec').tap do |syslog|
+    syslog.err "Exception occurred"
+
+    msg.each do |line|
+      syslog.err line
+    end
+
+    syslog.close
+  end
+
+  parent = FreeRec::View::Builder.instance['main-window'] rescue nil
+  dialog = Gtk::MessageDialog.new parent,
+    Gtk::Dialog::DESTROY_WITH_PARENT,
+    Gtk::MessageDialog::ERROR,
+    Gtk::MessageDialog::BUTTONS_CLOSE
+
+  dialog.text = _("Well, this is embarrassing. FreeRec crashed.")
+  dialog.secondary_text =
+    _("Please convey the following error message to the developers:\n\n%s") %
+    msg.join("\n")
+
+  dialog.run
+  dialog.destroy
+
+  exit 1
 end
 
