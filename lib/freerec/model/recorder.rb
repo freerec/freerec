@@ -38,15 +38,19 @@ module FreeRec
       def initialize
         super()
 
-        src = Gst::ElementFactory.make! 'autoaudiosrc'
-        tee = Gst::ElementFactory.make! 'tee'
+        src   = Gst::ElementFactory.make! 'autoaudiosrc'
+        conv  = Gst::ElementFactory.make! 'audioconvert'
+        resmp = Gst::ElementFactory.make! 'audioresample'
+        tee   = Gst::ElementFactory.make! 'tee'
 
-        add src, tee
-        src >> tee
+        caps = Gst::Caps.parse! 'audio/x-raw-int, channels=1'
+
+        add src, conv, resmp, tee
+        src >> conv
+        conv.link_filtered! resmp, caps
+        resmp >> tee
 
         spx_queue = Gst::ElementFactory.make! 'queue'
-        spx_conv  = Gst::ElementFactory.make! 'audioconvert'
-        spx_resmp = Gst::ElementFactory.make! 'audioresample'
         spx_enc   = Gst::ElementFactory.make! 'speexenc'
         spx_mux   = Gst::ElementFactory.make! 'oggmux'
         spx_sink  = Gst::ElementFactory.make! 'filesink'
@@ -56,24 +60,22 @@ module FreeRec
         spx_enc.quality = 0
         spx_enc.vbr = true
         spx_enc.vad = true
+        spx_enc.dtx = true
+        spx_enc.complexity = 10
 
-        add spx_queue, spx_conv, spx_resmp, spx_enc, spx_mux, spx_sink
-        tee >>
-          spx_queue >> spx_conv >> spx_resmp >> spx_enc >> spx_mux >> spx_sink
+        add spx_queue, spx_enc, spx_mux, spx_sink
+        tee >> spx_queue >> spx_enc >> spx_mux >> spx_sink
 
         mp3_queue = Gst::ElementFactory.make! 'queue'
-        mp3_conv  = Gst::ElementFactory.make! 'audioconvert'
-        mp3_resmp = Gst::ElementFactory.make! 'audioresample'
         mp3_enc   = Gst::ElementFactory.make! 'lame'
         mp3_sink  = Gst::ElementFactory.make! 'filesink'
 
         @mp3_sink = mp3_sink
 
         mp3_enc.bitrate = 64
-        mp3_enc.mode = 'mono'
 
-        add mp3_queue, mp3_conv, mp3_resmp, mp3_enc, mp3_sink
-        tee >> mp3_queue >> mp3_conv >> mp3_resmp >> mp3_enc >> mp3_sink
+        add mp3_queue, mp3_enc, mp3_sink
+        tee >> mp3_queue >> mp3_enc >> mp3_sink
       end
 
       def play
