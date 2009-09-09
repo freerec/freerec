@@ -17,7 +17,7 @@ require 'fileutils'
 require 'gst'
 
 require 'freerec/model/gst-status-text-mixin'
-require 'gst-extensions'
+require 'object-extensions'
 
 module FreeRec
   module Model

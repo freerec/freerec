@@ -13,19 +13,22 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-require 'gst'
+class Object
+  def method_missing meth, *args, &block
+    meth_s = meth.to_s
+    return super unless meth_s[-1..-1] == '!'
+    meth = meth_s.chop.to_sym
 
-module Gst
-  class ElementFactory
-    def self.find! factory_name
-      find(factory_name) or
-        raise ArgumentError,
-              "ElementFactory #{factory_name.inspect} not found",
-              caller
-    end
+    return super unless respond_to? meth
 
-    def self.make! factory_name, element_name=nil
-      find!(factory_name).create(element_name)
+    kaller = caller(0)
+
+    send(meth, *args, &block).tap do |val|
+      if val.nil?
+        raise ArgumentError, "%s.%s(%s) returned nil" % [
+          self, meth, args.map(&:inspect).join(', ')
+        ], kaller
+      end
     end
   end
 end
