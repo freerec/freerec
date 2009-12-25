@@ -76,6 +76,30 @@ module FreeRec
 
         add mp3_queue, mp3_enc, mp3_sink
         tee >> mp3_queue >> mp3_enc >> mp3_sink
+
+        vis_queue = Gst::ElementFactory.make! 'queue'
+        vis_vis   = Gst::ElementFactory.make! 'libvisual_lv_analyzer'
+        vis_crop  = Gst::ElementFactory.make! 'videocrop'
+        vis_color = Gst::ElementFactory.make! 'ffmpegcolorspace'
+        vis_sink  = Gst::ElementFactory.make! 'xvimagesink'
+
+        @vis_sink = vis_sink
+
+        vis_caps = Gst::Caps.parse! 'video/x-raw-rgb, width=256, height=80'
+
+        add vis_queue, vis_vis, vis_crop, vis_color, vis_sink
+        tee >> vis_queue >> vis_vis
+        vis_vis.link_filtered! vis_crop, vis_caps
+        vis_crop >> vis_color >> vis_sink
+
+        vis_crop.top = 40
+        vis_sink.sync = false
+        vis_sink.force_aspect_ratio = true
+        vis_sink.handle_events = false
+      end
+
+      def window= xid
+        @vis_sink.xwindow_id = xid
       end
 
       def play

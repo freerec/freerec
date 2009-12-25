@@ -26,12 +26,18 @@ module FreeRec
         @recorder = Model::Recorder.new
         @player = Model::SongPlayer.new
 
+        @recorder.window = @window.visualization_xid
+        @window.visualization_on_expose do
+          @recorder.window = @window.visualization_xid
+        end
+
         @recorder_state = :stopped
         @player_state   = :stopped
 
         selected_song = 0
 
         @window.on_recorder_record do
+          @recorder.window = @window.visualization_xid
           @recorder.play
           update_recorder_state
         end

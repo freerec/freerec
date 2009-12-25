@@ -37,6 +37,10 @@ module FreeRec
         @recorder_progressbar = builder['recorder-progressbar']
         @songs_progressbar    = builder['songs-progressbar']
 
+        @recorder_visualization = builder['recorder-visualization-drawingarea']
+        @recorder_visualization.app_paintable = true
+        @recorder_visualization.double_buffered = false
+
         @songs_iconview = builder['songs-iconview']
 
         store = Gtk::ListStore.new Integer, String, Gdk::Pixbuf
@@ -51,6 +55,16 @@ module FreeRec
 
         self.recorder_state = :stopped
         self.songs_state    = :stopped
+      end
+
+      def visualization_xid
+        @recorder_visualization.window.xid
+      end
+
+      def visualization_on_expose
+        @recorder_visualization.signal_connect 'expose-event' do
+          yield
+        end
       end
 
       def recorder_state= state

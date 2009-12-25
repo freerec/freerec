@@ -24,12 +24,18 @@ Runtime dependencies:
   • (base) audioconvert
   • (base) audioresample
   • (base) decodebin
+  • (base) ffmpegcolorspace
+  • (base) libvisual
   • (base) ogg
+  • (base/x) xvimagesink
   • (good) autodetect
   • (good) speex
+  • (good) videocrop
   • (ugly) lame
   • (ugly) mad
   • An audio source and an audio sink (e.g. pulse or alsa)
+
+• libvisual-plugins (specifically, actor_lv_analyzer.so)
 
 • You also need to be using a Gtk icon theme that provides the audio-x-generic
   icon. If you’re not a Gnome user, installing e.g. gnome-icon-theme and using

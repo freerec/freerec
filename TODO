@@ -1,7 +1,5 @@
 In rough priority order:
 
-• Display a VU meter for input.
-
 • Let the user type a title for the current/next recording. Store it in file
   tags and names.
 
