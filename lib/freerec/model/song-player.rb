@@ -15,14 +15,11 @@
 
 require 'gst'
 
-require 'freerec/model/gst-status-text-mixin'
 require 'object-extensions'
 
 module FreeRec
   module Model
     class SongPlayer < Gst::Pipeline
-      include GstStatusTextMixin
-
       def self.songs_dir= dir
         metaclass = class << self; self; end
         metaclass.send :define_method, :songs_dir do dir end
@@ -50,6 +47,11 @@ module FreeRec
         dec.signal_connect 'new-decoded-pad' do |elem, pad|
           pad.link conv['sink']
         end
+      end
+
+      def seek_to time
+        seek 1.0, Gst::Format::TIME, Gst::Seek::FLAG_FLUSH, Gst::SeekType::SET,
+             time, Gst::SeekType::NONE, 0
       end
 
       def song= number

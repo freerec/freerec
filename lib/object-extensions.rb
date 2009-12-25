@@ -33,3 +33,17 @@ class Object
   end
 end
 
+class Gst::Element
+  def position
+    query_obj = Gst::QueryPosition.new Gst::Format::TIME
+    query query_obj
+    query_obj.parse[1]
+  end
+
+  def duration
+    query_obj = Gst::QueryDuration.new Gst::Format::TIME
+    query query_obj
+    query_obj.parse[1]
+  end
+end
+

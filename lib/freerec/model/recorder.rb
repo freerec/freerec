@@ -16,14 +16,11 @@
 require 'fileutils'
 require 'gst'
 
-require 'freerec/model/gst-status-text-mixin'
 require 'object-extensions'
 
 module FreeRec
   module Model
     class Recorder < Gst::Pipeline
-      include GstStatusTextMixin
-
       def self.output_dir= dir
         FileUtils.mkdir_p dir
 
@@ -42,6 +39,8 @@ module FreeRec
         conv  = Gst::ElementFactory.make! 'audioconvert'
         resmp = Gst::ElementFactory.make! 'audioresample'
         tee   = Gst::ElementFactory.make! 'tee'
+
+        @src = src
 
         caps = Gst::Caps.parse! 'audio/x-raw-int, channels=1'
 
@@ -112,6 +111,18 @@ module FreeRec
         end
 
         super()
+      end
+
+      def position
+        # Override position; when stopped at, say, 1:23 and restarted, this
+        # pipeline’s queried position often stays at 1:23 until the actual
+        # recording time reaches 1:23, and only then proceeds forward.
+
+        @src.clock.time rescue -1
+      end
+
+      def duration
+        -1
       end
 
       private

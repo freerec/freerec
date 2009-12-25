@@ -72,6 +72,10 @@ module FreeRec
           update_player_state
         end
 
+        @window.on_songs_seek do |value|
+          @player.seek_to value
+        end
+
         @window.on_destroy do
           Gtk.main_quit
         end
@@ -103,12 +107,12 @@ module FreeRec
         end
         @window.songs_select 1
 
-        update_recorder_text
-        update_songs_text
+        update_recorder_pos
+        update_songs_pos
 
-        GLib::Timeout.add_seconds 1 do
-          update_recorder_text
-          update_songs_text
+        GLib::Timeout.add 200 do
+          update_recorder_pos
+          update_songs_pos
         end
 
         if block_given?
@@ -139,7 +143,7 @@ module FreeRec
 
         @window.recorder_state = @recorder_state
 
-        update_recorder_text
+        update_recorder_pos
       end
 
       def update_player_state
@@ -155,17 +159,17 @@ module FreeRec
 
         @window.songs_state = @player_state
 
-        update_songs_text
+        update_songs_pos
       end
 
-      def update_recorder_text
-        @window.recorder_text = @recorder.status_text
+      def update_recorder_pos
+        @window.recorder_position @recorder.position
 
         true
       end
 
-      def update_songs_text
-        @window.songs_text = @player.status_text
+      def update_songs_pos
+        @window.songs_position @player.position, @player.duration
 
         true
       end

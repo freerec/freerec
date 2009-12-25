@@ -30,12 +30,39 @@ module FreeRec
         @recorder_stop_button   = builder['recorder-stop-button']
         @recorder_dir_button    = builder['recorder-open-directory-button']
 
+        @recorder_scale = builder['recorder-scale']
+        @recorder_scale.sensitive = false
+        @recorder_scale.update_policy = Gtk::UPDATE_DISCONTINUOUS
+        @recorder_scale.set_range 0, 1
+        @recorder_scale.signal_connect 'format-value' do |scale, position|
+          format_ns position
+        end
+
         @songs_play_button  = builder['songs-play-button']
         @songs_pause_button = builder['songs-pause-button']
         @songs_stop_button  = builder['songs-stop-button']
 
-        @recorder_progressbar = builder['recorder-progressbar']
-        @songs_progressbar    = builder['songs-progressbar']
+        @songs_scale = builder['songs-scale']
+        @songs_scale.sensitive = false
+        @songs_scale.update_policy = Gtk::UPDATE_DISCONTINUOUS
+        @songs_scale.set_range 0, 1
+        @songs_scale.set_increments 5_000_000_000, 5_000_000_000
+        @songs_scale.signal_connect 'format-value' do |scale, position|
+          duration = scale.adjustment.upper
+          "%s / %s" % [format_ns(position), format_ns(duration)]
+        end
+
+        @songs_scale_handlers = []
+
+        @songs_scale_dragging = false
+        @songs_scale.signal_connect 'button-press-event' do
+          @songs_scale_dragging = true
+          false
+        end
+        @songs_scale.signal_connect 'button-release-event' do
+          @songs_scale_dragging = false
+          false
+        end
 
         @recorder_visualization = builder['recorder-visualization-drawingarea']
         @recorder_visualization.app_paintable = true
@@ -78,17 +105,11 @@ module FreeRec
 
         @recorder_record_button.visible = @recorder_record_button.sensitive?
         @recorder_pause_button.visible  = @recorder_pause_button.sensitive?
-
-        case state
-        when :recording
-          @recorder_progressbar.fraction = 1.0
-        when :paused, :stopped
-          @recorder_progressbar.fraction = 0.0
-        end
       end
 
-      def recorder_text= text
-        @recorder_progressbar.text = text
+      def recorder_position position
+        @recorder_scale.set_range 0, [1, position].max
+        @recorder_scale.value = [0, position].max
       end
 
       def on_recorder_record &block
@@ -118,17 +139,25 @@ module FreeRec
 
         @songs_play_button.visible  = @songs_play_button.sensitive?
         @songs_pause_button.visible = @songs_pause_button.sensitive?
-
-        case state
-        when :playing, :paused
-          @songs_progressbar.fraction = 1.0
-        when :stopped
-          @songs_progressbar.fraction = 0.0
-        end
       end
 
-      def songs_text= text
-        @songs_progressbar.text = text
+      def songs_position position, duration
+        return if @songs_scale_dragging
+
+        @songs_scale_handlers.each do |h|
+          @songs_scale.signal_handler_block h
+        end
+
+        duration = if duration < 0 then position else duration end
+
+        @songs_scale.sensitive = position >= 0
+
+        @songs_scale.set_range 0, [1, duration].max
+        @songs_scale.set_value [0, position].max
+
+        @songs_scale_handlers.each do |h|
+          @songs_scale.signal_handler_unblock h
+        end
       end
 
       def on_songs_play &block
@@ -141,6 +170,13 @@ module FreeRec
 
       def on_songs_stop &block
         @songs_stop_button.signal_connect 'clicked', &block
+      end
+
+      def on_songs_seek
+        h = @songs_scale.signal_connect 'value-changed' do
+          yield @songs_scale.value
+        end
+        @songs_scale_handlers << h
       end
 
       def on_destroy &block
@@ -170,6 +206,21 @@ module FreeRec
             @songs_iconview.select_path path
             break
           end
+        end
+      end
+
+      private
+
+      def format_ns time
+        s = 1_000_000_000
+        h_m_s_ns = [60*60*s, 60*s, s].inject([time]) do |list, div|
+          list[0..-2] + list[-1].divmod(div)
+        end
+
+        if h_m_s_ns[0] > 0
+          '%u:%02u:%02u' % h_m_s_ns[0..2]
+        else
+          '%u:%02u' % h_m_s_ns[1..2]
         end
       end
     end
