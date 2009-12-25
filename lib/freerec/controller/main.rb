@@ -77,6 +77,7 @@ module FreeRec
         end
 
         @window.on_destroy do
+          stop
           Gtk.main_quit
         end
 
@@ -125,6 +126,7 @@ module FreeRec
       end
 
       def stop
+        @recorder.stop if @recorder
         @player.stop if @player
       end
 
