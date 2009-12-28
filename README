@@ -1,8 +1,7 @@
 FreeRec provides a simple interface to record audio in MP3 and Speex formats
 and to play songs from a static list.
 
-The latest version is available at <http://github.com/freerec/freerec>. The
-repository contains Ubuntu packaging in the debian branch.
+Homepage: https://launchpad.net/freerec
 
 Build-time dependencies:
 
